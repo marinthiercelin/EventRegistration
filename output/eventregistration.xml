@@ -1,12 +1,28 @@
 <manager id="1">
-  <registrations id="2"/>
-  <participants id="3">
-    <participant id="4">
+  <registrations id="2">
+    <registration id="3">
+      <id>1</id>
+      <participant id="4">
+        <name>Ladislas</name>
+      </participant>
+      <event id="5">
+        <name>Soirée posée au calme</name>
+        <eventDate id="6">2017-01-27</eventDate>
+        <startTime id="7">16:00:00</startTime>
+        <endTime id="8">20:00:00</endTime>
+      </event>
+    </registration>
+  </registrations>
+  <participants id="9">
+    <participant id="10">
       <name>Marin</name>
     </participant>
-    <participant id="5">
+    <participant id="11">
       <name>Marin</name>
     </participant>
+    <participant reference="4"/>
   </participants>
-  <events id="6"/>
+  <events id="12">
+    <event reference="5"/>
+  </events>
 </manager>
