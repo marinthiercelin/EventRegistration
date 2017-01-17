@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.eventregistration.view;
 
+import java.awt.Color;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +24,9 @@ public class ParticipantPage extends JFrame {
 	private JLabel participantNameLabel;
 	private JButton addParticipantButton;
 	
+	private String error = null; 
+	private JLabel errorMessage; 
+	
 	private RegistrationManager rm;
 
 	/** Creates new form ParticipantPage */
@@ -34,6 +39,9 @@ public class ParticipantPage extends JFrame {
 		this.participantNameLabel = new JLabel();
 		this.participantNameTextField = new JTextField();
 		this.addParticipantButton = new JButton();
+
+		errorMessage = new JLabel();
+		errorMessage.setForeground(Color.RED);
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Event Registration");
@@ -53,38 +61,45 @@ public class ParticipantPage extends JFrame {
 	    layout.setAutoCreateContainerGaps(true);
 
 	    layout.setHorizontalGroup(
-	        layout.createSequentialGroup()
-	        .addComponent(participantNameLabel)
-	        .addGroup(layout.createParallelGroup()
-	            .addComponent(participantNameTextField, 200, 200, 400)
-	            .addComponent(addParticipantButton))
-	        );
+	            layout.createParallelGroup()
+	            .addComponent(errorMessage)
+	            .addGroup(layout.createSequentialGroup()
+	            .addComponent(participantNameLabel)
+	            .addGroup(layout.createParallelGroup()
+	                .addComponent(participantNameTextField, 200, 200, 400)
+	                .addComponent(addParticipantButton))
+	            ));
 
 	    layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addParticipantButton, participantNameTextField});
 
 	    layout.setVerticalGroup(
-	        layout.createSequentialGroup()
-	        .addGroup(layout.createParallelGroup()
-	            .addComponent(participantNameLabel)
-	            .addComponent(participantNameTextField))
-	        .addComponent(addParticipantButton)
-	        );
+	            layout.createSequentialGroup()
+	            .addComponent(errorMessage)
+	            .addGroup(layout.createParallelGroup()
+	                .addComponent(participantNameLabel)
+	                .addComponent(participantNameTextField))
+	            .addComponent(addParticipantButton)
+	            );
 
 	    pack();
 	}
 	
 	private void refreshData() {
-		participantNameTextField.setText("");
+		errorMessage.setText(error); 
+		if(error == null || error.length() == 0) {
+			participantNameTextField.setText("");
+		}
 		pack();
 	}
 	
 	private void addParticipantButtonActionPerformed() {
 		// create and call the controller
 		EventRegistrationController erc = new EventRegistrationController(rm);
+		error = null; 
 		try {
 			erc.createParticipant(participantNameTextField.getText());
 		} catch (Exception e) {
-			// At that point, we ignore the exception
+			error = e.getMessage(); 
 		}
 		refreshData();
 	}
