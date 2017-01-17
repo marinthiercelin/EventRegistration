@@ -18,7 +18,7 @@ import ca.mcgill.ecse321.eventregistration.model.RegistrationManager;
 import ca.mcgill.ecse321.eventregistration.persistence.PersistenceXStream;
 
 public class TestEventRegistrationController {
-	
+
 	private RegistrationManager rm;
 
 	@BeforeClass
@@ -47,7 +47,13 @@ public class TestEventRegistrationController {
 		String name = "Oscar";
 
 		EventRegistrationController erc = new EventRegistrationController(rm);
-		erc.createParticipant(name);
+
+		try {
+			erc.createParticipant(name);
+		} catch (InvalidInputException e) {
+			// Check that no error occured
+			fail();
+		}
 
 		// check model in memory
 		checkResultParitcipant(name);
@@ -63,42 +69,67 @@ public class TestEventRegistrationController {
 		assertEquals(0, rm.getEvents().size());
 		assertEquals(0, rm.getRegistrations().size());
 	}
-	
-	@Test
-	public void testCreateEvent() {
-	  RegistrationManager rm = new RegistrationManager();
-	  assertEquals(0, rm.getEvents().size());
 
-	  String name = "Soccer Game";
-	  Calendar c = Calendar.getInstance();
-	  c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
-	  Date eventDate = new Date(c.getTimeInMillis());
-	  Time startTime = new Time(c.getTimeInMillis());
-	  c.set(2017, Calendar.MARCH, 16, 10, 30, 0);
-	  Time endTime = new Time(c.getTimeInMillis());
-	  // test model in memory
-	  EventRegistrationController erc = new EventRegistrationController(rm);
-	  try {
-	    erc.createEvent(name, eventDate, startTime, endTime);
-	  } catch (InvalidInputException e) {
-	    fail();
-	  }
-	  checkResultEvent(name, eventDate, startTime, endTime, rm);
-	  // test file
-	  RegistrationManager rm2 = (RegistrationManager) PersistenceXStream.loadFromXMLwithXStream();
-	  checkResultEvent(name, eventDate, startTime, endTime, rm2);
-	  rm2.delete();
-	}
-	
-	private void checkResultEvent(String name, Date eventDate, Time startTime, Time endTime, RegistrationManager rm2)   {
-		  assertEquals(0, rm2.getParticipants().size());
-		  assertEquals(1, rm2.getEvents().size());
-		  assertEquals(name, rm2.getEvent(0).getName());
-		  assertEquals(eventDate.toString(), rm2.getEvent(0).getEventDate().toString());
-		  assertEquals(startTime.toString(), rm2.getEvent(0).getStartTime().toString());
-		  assertEquals(endTime.toString(), rm2.getEvent(0).getEndTime().toString());
-		  assertEquals(0, rm2.getRegistrations().size());
+	@Test
+	public void testCreateParticipantNull() {
+		assertEquals(0, rm.getParticipants().size());
+		String name = null;
+		String error = null;
+
+		EventRegistrationController erc = new EventRegistrationController(rm);
+		try {
+			erc.createParticipant(name);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
 		}
-	
+
+		// check error
+		assertEquals("Participant name cannot be empty!", error);
+
+		// check no change in memory
+		assertEquals(0, rm.getParticipants().size());
+	}
+
+	@Test
+	public void testCreateParticipantEmpty() {
+		assertEquals(0, rm.getParticipants().size());
+
+		String name = "";
+
+		String error = null;
+		EventRegistrationController erc = new EventRegistrationController(rm);
+		try {
+			erc.createParticipant(name);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Participant name cannot be empty!", error);
+
+		// check no change in memory
+		assertEquals(0, rm.getParticipants().size());
+	}
+
+	@Test
+	public void testCreateParticipantSpaces() {
+		assertEquals(0, rm.getParticipants().size());
+
+		String name = " ";
+
+		String error = null;
+		EventRegistrationController erc = new EventRegistrationController(rm);
+		try {
+			erc.createParticipant(name);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Participant name cannot be empty!", error);
+
+		// check no change in memory
+		assertEquals(0, rm.getParticipants().size());
+	}
 
 }
