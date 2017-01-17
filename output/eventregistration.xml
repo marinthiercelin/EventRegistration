@@ -4,6 +4,9 @@
     <participant id="4">
       <name>Marin</name>
     </participant>
+    <participant id="5">
+      <name>Marin</name>
+    </participant>
   </participants>
-  <events id="5"/>
+  <events id="6"/>
 </manager>
