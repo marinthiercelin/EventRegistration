@@ -5,6 +5,7 @@ import java.sql.Time;
 
 import ca.mcgill.ecse321.eventregistration.model.Event;
 import ca.mcgill.ecse321.eventregistration.model.Participant;
+import ca.mcgill.ecse321.eventregistration.model.Registration;
 import ca.mcgill.ecse321.eventregistration.model.RegistrationManager;
 import ca.mcgill.ecse321.eventregistration.persistence.PersistenceXStream;
 
@@ -28,5 +29,12 @@ public class EventRegistrationController {
 		Event e = new Event(name, date, startTime, endTime);
 	    rm.addEvent(e);
 	    PersistenceXStream.saveToXMLwithXStream(rm);
+	}
+	
+	public void register(Participant participant, Event event) throws InvalidInputException
+	{
+		Registration r = new Registration(participant, event);
+		rm.addRegistration(r);
+		PersistenceXStream.saveToXMLwithXStream(rm);
 	}
 }
