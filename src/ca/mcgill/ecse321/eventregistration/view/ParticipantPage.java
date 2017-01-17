@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import ca.mcgill.ecse321.eventregistration.controller.EventRegistrationController;
+import ca.mcgill.ecse321.eventregistration.controller.InvalidInputException;
 import ca.mcgill.ecse321.eventregistration.model.RegistrationManager;
 
 public class ParticipantPage extends JFrame {
@@ -98,7 +99,7 @@ public class ParticipantPage extends JFrame {
 		error = null; 
 		try {
 			erc.createParticipant(participantNameTextField.getText());
-		} catch (Exception e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage(); 
 		}
 		refreshData();
