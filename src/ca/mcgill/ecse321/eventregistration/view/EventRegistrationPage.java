@@ -29,6 +29,10 @@ import ca.mcgill.ecse321.eventregistration.model.RegistrationManager;
 
 public class EventRegistrationPage extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7740988523886116649L;
 	private JLabel errorMessage;
 	private JComboBox<String> participantList;
 	private JLabel participantLabel;
