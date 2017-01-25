@@ -8,10 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import ca.mcgill.ecse321.eventregistration.controller.EventRegistrationController;
 import ca.mcgill.ecse321.eventregistration.controller.InvalidInputException;
+import ca.mcgill.ecse321.eventregistration.model.Event;
+import ca.mcgill.ecse321.eventregistration.model.Participant;
 import ca.mcgill.ecse321.eventregistration.model.RegistrationManager;
 import ca.mcgill.ecse321.eventregistration.persistence.PersistenceXStream;
 
@@ -45,6 +49,27 @@ public class MainActivity extends AppCompatActivity {
     private void refreshData() {
         TextView tv = (TextView) findViewById(R.id.newparticipant_name);
         tv.setText("");
+        // Initialize the data in the participant spinner
+        Spinner spinner = (Spinner) findViewById(R.id.participantspinner);
+        ArrayAdapter<CharSequence> participantAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        participantAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        for (Participant p: rm.getParticipants() ) {
+            participantAdapter.add(p.getName());
+        }
+        spinner.setAdapter(participantAdapter);
+        // Initialize the data in the event spinner
+        Spinner spinner_ev = (Spinner) findViewById(R.id.eventspinner);
+        ArrayAdapter<CharSequence> eventAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        eventAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        for (Event e: rm.getEvents() ) {
+            eventAdapter.add(e.getName());
+        }
+        spinner.setAdapter(eventAdapter);
+
+        TextView errTv = (TextView) findViewById(R.id.error_message);
+        errTv.setText(error);
     }
 
     @Override

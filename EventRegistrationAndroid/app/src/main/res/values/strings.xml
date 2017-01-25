@@ -14,5 +14,4 @@
     <string name="participantspinner_label">Participant ?</string>
     <string name="eventspinner_label">Event ?</string>
     <string name="newregistration_button">Register</string>
-    <string name="error_message_label"></string>
 </resources>
