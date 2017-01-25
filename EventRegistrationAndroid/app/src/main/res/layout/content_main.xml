@@ -25,146 +25,167 @@
             android:text="@string/error_message_label"/>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/participantspinner_label"/>
-
-            <Spinner
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="end"
-                android:id="@+id/participantspinner"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/eventspinner_label"/>
-
-            <Spinner
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="end"
-                android:id="@+id/eventspinner"/>
-
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/newregistration_button"
-            android:onClick="addParticipant"/>
-
-        <View
-            android:layout_height="2dp"
-            android:layout_width="fill_parent"
-            android:background="#FFFFFF"/>
-
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/newparticipant_name"
-            android:hint="@string/newparticipant_hint"/>
+            android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/newparticipant_button"
-            android:onClick="addParticipant"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
 
-        <View
-            android:layout_height="2dp"
-            android:layout_width="fill_parent"
-            android:background="#FFFFFF"/>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/participantspinner_label"/>
 
-        <EditText
+                <Spinner
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="end"
+                    android:id="@+id/participantspinner"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/eventspinner_label"/>
+
+                <Spinner
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="end"
+                    android:id="@+id/eventspinner"/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/newregistration_button"
+                android:onClick="addParticipant"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/newevent_name"
-            android:hint="@string/newevent_hint"/>
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            <View
+                android:layout_height="2dp"
+                android:layout_width="fill_parent"
+                android:background="#FFFFFF"/>
 
-            <TextView
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/newevent_date_label"/>
+                android:id="@+id/newparticipant_name"
+                android:hint="@string/newparticipant_hint"/>
 
-            <TextView
-                android:layout_height="wrap_content"
+            <Button
                 android:layout_width="wrap_content"
-                android:text="@string/newevent_date_first"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:id="@+id/newevent_date"
-                android:onClick="showDatePickerDialog"/>
+                android:text="@string/newparticipant_button"
+                android:onClick="addParticipant"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/newevent_start_time_label"/>
+            <View
+                android:layout_height="2dp"
+                android:layout_width="fill_parent"
+                android:background="#FFFFFF"/>
 
-            <TextView
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/newevent_name"
+                android:hint="@string/newevent_hint"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/newevent_date_label"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/newevent_date_first"
+                    android:layout_gravity="end"
+                    android:id="@+id/newevent_date"
+                    android:onClick="showDatePickerDialog"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/newevent_start_time_label"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/newevent_start_time_first"
+                    android:layout_gravity="end"
+                    android:id="@+id/newevent_start_time"
+                    android:onClick="showTimePickerDialog"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/newevent_end_time_label"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/newevent_end_time_first"
+                    android:layout_gravity="end"
+                    android:id="@+id/newevent_end_time"
+                    android:onClick="showTimePickerDialog"/>
+
+            </LinearLayout>
+
+            <Button
                 android:layout_width="wrap_content"
-                android:text="@string/newevent_start_time_first"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:id="@+id/newevent_start_time"
-                android:onClick="showTimePickerDialog"/>
+                android:text="@string/newevent_button"
+                android:onClick="addEvent"/>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/newevent_end_time_label"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/newevent_end_time_first"
-                android:layout_gravity="end"
-                android:id="@+id/newevent_end_time"
-                android:onClick="showTimePickerDialog"/>
-
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/newevent_button"
-            android:onClick="addEvent"/>
 
     </LinearLayout>
 
