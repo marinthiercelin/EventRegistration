@@ -105,6 +105,21 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
 
+    public void addEvent(View v) {
+        TextView name_tv = (TextView) findViewById(R.id.newevent_name);
+        TextView date_tv = (TextView) findViewById(R.id.newevent_date);
+        TextView start_time_tv = (TextView) findViewById(R.id.newevent_start_time);
+        TextView end_time_tv = (TextView) findViewById(R.id.newevent_end_time);
+        EventRegistrationController pc = new EventRegistrationController(rm);
+        String name = name_tv.getText().toString();
+        try {
+            pc.createEvent(name, );
+        } catch (InvalidInputException e) {
+            error = e.getMessage();
+        }
+        refreshData();
+    }
+
     public void showDatePickerDialog(View v) {
         TextView tf = (TextView) v;
         Bundle args = getDateFromLabel(tf.getText());
@@ -113,6 +128,16 @@ public class MainActivity extends AppCompatActivity {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setArguments(args);
         newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void showTimePickerDialog(View v) {
+        TextView tf = (TextView) v;
+        Bundle args = getTimeFromLabel(tf.getText());
+        args.putInt("id", v.getId());
+
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
     private Bundle getTimeFromLabel(CharSequence text) {
