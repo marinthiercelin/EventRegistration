@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         Participant participant = null;
         Event event = null;
         for ( Participant part : rm.getParticipants()){
-            if (participant.getName() == participantName){
+            if (part.getName() == participantName){
                 participant = part;
             }
         }
