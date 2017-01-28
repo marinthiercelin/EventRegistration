@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(participantAdapter);
         // Initialize the data in the event spinner
         Spinner spinner_ev = (Spinner) findViewById(R.id.eventspinner);
+
         ArrayAdapter<CharSequence> eventAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         eventAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView errTv = (TextView) findViewById(R.id.error_message);
         errTv.setText(error);
+        error = null;
     }
 
     @Override
@@ -121,17 +123,24 @@ public class MainActivity extends AppCompatActivity {
         String[] date_tab = date_tv.getText().toString().split("-");
         String[] start_time_tab = start_time_tv.getText().toString().split(":");
         String[] end_time_tab = end_time_tv.getText().toString().split(":");
+
         Calendar calendar = new GregorianCalendar();
-        calendar.set(Calendar.MONTH, Integer.parseInt(date_tab[0]));
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date_tab[1]));
-        calendar.set(Calendar.YEAR, Integer.parseInt(date_tab[2]));
-        calendar.set(Calendar.HOUR, Integer.parseInt(start_time_tab[0]));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(start_time_tab[1]));
+        calendar.set(Integer.parseInt(date_tab[2]),Integer.parseInt(date_tab[1])-1,Integer.parseInt(date_tab[0]),
+                Integer.parseInt(start_time_tab[0]),  Integer.parseInt(start_time_tab[1]));
+
         Time startTime = new Time(calendar.getTime().getTime());
         Date date = new Date(calendar.getTime().getTime());
-        calendar.set(Calendar.HOUR, Integer.parseInt(end_time_tab[0]));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(end_time_tab[1]));
+
+        calendar.set(Integer.parseInt(date_tab[2]),Integer.parseInt(date_tab[1])-1,Integer.parseInt(date_tab[0]),
+                Integer.parseInt(end_time_tab[0]),  Integer.parseInt(end_time_tab[1]));
+
         Time endTime = new Time(calendar.getTime().getTime());
+
+        /**TextView errTv = (TextView) findViewById(R.id.error_message);
+        error = "Date " + date.toString() + " start time " + startTime.toString() + " end time " + endTime.toString();
+        errTv.setText(error);
+        error = null;**/
+
 
         try {
             pc.createEvent(name, date, startTime, endTime);

@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="newparticipant_hint">Who?</string>
     <string name="newparticipant_button">Add Particpiant</string>
-    <string name="newevent_date_first">07-20-1969</string>
+    <string name="newevent_date_first">20-07-1969</string>
     <string name="newevent_date_label">Date ?</string>
     <string name="newevent_start_time_label">Start Time ?</string>
     <string name="newevent_start_time_first">20:17</string>
