@@ -1,8 +1,10 @@
 <?php
+$inc_path = get_include_path();
+print "string " + $inc_path;
 
-require_once__DIR__.'\..\persistence\PersistenceEventRegistration.php';
-require_once__DIR__.'\..\model\RegistrationManager.php';
-require_once__DIR__.'\..\model\Participant.php';
+require_once __DIR__.'/../persistence/PersistenceEventRegistration.php';
+require_once __DIR__.'/../model/RegistrationManager.php';
+require_once __DIR__.'/../model/Participant.php';
 		
 class PersistenceEventRegistrationTest extends PHPUnit_Framework_TestCase 
 {
@@ -20,14 +22,14 @@ class PersistenceEventRegistrationTest extends PHPUnit_Framework_TestCase
 	
 	public function testPersistence() 
 	{
-		$rm = RegistrationManager::getInstance(); 
-		$participant = new Participant("Boris");
+		$rm = new RegistrationManager(); 
+		$participant = new Participant("Frank");
 		$rm->addParticipant($participant);
 		
 		$this->pm->writeDataToStore($rm); 
 		
 		$rm->delete(); 
-		$this->assertEquals(0, count($rm->getParticipants));
+		$this->assertEquals(0, count($rm->getParticipants()));
 		
 		$rm = $this->pm->loadDataFromStore(); 
 		

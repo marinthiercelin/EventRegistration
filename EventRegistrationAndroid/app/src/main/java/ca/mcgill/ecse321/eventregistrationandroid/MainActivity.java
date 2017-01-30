@@ -12,6 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.sql.Time;
+import java.util.Calendar;
+import java.sql.Date;
+import java.util.GregorianCalendar;
+
 import ca.mcgill.ecse321.eventregistration.controller.EventRegistrationController;
 import ca.mcgill.ecse321.eventregistration.controller.InvalidInputException;
 import ca.mcgill.ecse321.eventregistration.model.Event;
@@ -60,16 +65,18 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(participantAdapter);
         // Initialize the data in the event spinner
         Spinner spinner_ev = (Spinner) findViewById(R.id.eventspinner);
+
         ArrayAdapter<CharSequence> eventAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
         eventAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         for (Event e: rm.getEvents() ) {
             eventAdapter.add(e.getName());
         }
-        spinner.setAdapter(eventAdapter);
+        spinner_ev.setAdapter(eventAdapter);
 
         TextView errTv = (TextView) findViewById(R.id.error_message);
         errTv.setText(error);
+        error = null;
     }
 
     @Override
@@ -106,14 +113,66 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addEvent(View v) {
+        EventRegistrationController pc = new EventRegistrationController(rm);
+
         TextView name_tv = (TextView) findViewById(R.id.newevent_name);
         TextView date_tv = (TextView) findViewById(R.id.newevent_date);
         TextView start_time_tv = (TextView) findViewById(R.id.newevent_start_time);
         TextView end_time_tv = (TextView) findViewById(R.id.newevent_end_time);
-        EventRegistrationController pc = new EventRegistrationController(rm);
         String name = name_tv.getText().toString();
+        String[] date_tab = date_tv.getText().toString().split("-");
+        String[] start_time_tab = start_time_tv.getText().toString().split(":");
+        String[] end_time_tab = end_time_tv.getText().toString().split(":");
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Integer.parseInt(date_tab[2]),Integer.parseInt(date_tab[1])-1,Integer.parseInt(date_tab[0]),
+                Integer.parseInt(start_time_tab[0]),  Integer.parseInt(start_time_tab[1]));
+
+        Time startTime = new Time(calendar.getTime().getTime());
+        Date date = new Date(calendar.getTime().getTime());
+
+        calendar.set(Integer.parseInt(date_tab[2]),Integer.parseInt(date_tab[1])-1,Integer.parseInt(date_tab[0]),
+                Integer.parseInt(end_time_tab[0]),  Integer.parseInt(end_time_tab[1]));
+
+        Time endTime = new Time(calendar.getTime().getTime());
+
+        /**TextView errTv = (TextView) findViewById(R.id.error_message);
+        error = "Date " + date.toString() + " start time " + startTime.toString() + " end time " + endTime.toString();
+        errTv.setText(error);
+        error = null;**/
+
+
         try {
-            pc.createEvent(name, );
+            pc.createEvent(name, date, startTime, endTime);
+        } catch (InvalidInputException e) {
+            error = e.getMessage();
+        }
+        refreshData();
+    }
+
+    public void addRegistration(View v){
+
+        EventRegistrationController pc = new EventRegistrationController(rm);
+
+        Spinner nameSpinner = (Spinner) findViewById(R.id.participantspinner);
+        Spinner eventSpinner = (Spinner) findViewById(R.id.eventspinner);
+        String participantName = nameSpinner.getSelectedItem().toString();
+        String eventName = eventSpinner.getSelectedItem().toString();
+        Participant participant = null;
+        Event event = null;
+        for ( Participant part : rm.getParticipants()){
+            if (part.getName() == participantName){
+                participant = part;
+            }
+        }
+        for (Event ev : rm.getEvents()){
+            if (ev.getName() == eventName){
+                event = ev;
+            }
+        }
+
+        try {
+            pc.register(participant, event);
         } catch (InvalidInputException e) {
             error = e.getMessage();
         }

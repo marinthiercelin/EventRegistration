@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="@string/newregistration_button"
-                android:onClick="addParticipant"/>
+                android:onClick="addRegistration"/>
 
         </LinearLayout>
 
