@@ -2,9 +2,9 @@
 $inc_path = get_include_path();
 print "string " + $inc_path;
 
-require_once __DIR__.'/../persistence/PersistenceEventRegistration.php';
-require_once __DIR__.'/../model/RegistrationManager.php';
-require_once __DIR__.'/../model/Participant.php';
+require_once __DIR__.'\..\persistence\PersistenceEventRegistration.php';
+require_once __DIR__.'\..\model\RegistrationManager.php';
+require_once __DIR__.'\..\model\Participant.php';
 		
 class PersistenceEventRegistrationTest extends PHPUnit_Framework_TestCase 
 {

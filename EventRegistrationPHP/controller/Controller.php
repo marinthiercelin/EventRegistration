@@ -1,10 +1,10 @@
 <?php
-require_once__DIR__.'\..\controller\InputValidator.php';
-require_once__DIR__.'\..\persistence\PersistenceEventRegistration.php';
-require_once__DIR__.'\..\model\Event.php';
-require_once__DIR__.'\..\model\Registration.php';
-require_once__DIR__.'\..\model\RegistrationManager.php';
-require_once__DIR__.'\..\model\Participant.php';
+require_once __DIR__.'\..\controller\InputValidator.php';
+require_once __DIR__.'\..\persistence\PersistenceEventRegistration.php';
+require_once __DIR__.'\..\model\Event.php';
+require_once __DIR__.'\..\model\Registration.php';
+require_once __DIR__.'\..\model\RegistrationManager.php';
+require_once __DIR__.'\..\model\Participant.php';
 
 
 
@@ -44,7 +44,7 @@ class Controller
 		
 		// 2. Find the participant
 		$myparticipant = NULL;
-		foreach ($rm->getParticipant() as $participant) {
+		foreach ($rm->getParticipants() as $participant) {
 			if (strcmp($participant->getName(), $aParticipant) == 0) {
 				$myparticipant = $participant; 
 				break; 
