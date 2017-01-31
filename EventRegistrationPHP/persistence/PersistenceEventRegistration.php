@@ -9,7 +9,7 @@ class PersistenceEventRegistration {
 			$str = file_get_contents($this->filename);
 			$rm = unserialize($str);
 		} else {
-			$rm = RegistrationManager::getInstance();
+			$rm = new RegistrationManager();
 		}
 
 		return $rm;

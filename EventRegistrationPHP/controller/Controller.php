@@ -34,7 +34,39 @@ class Controller
 	}
 	
 	public function createEvent($event_name, $event_date, $starttime, $endtime) {
+		$name = InputValidator::validate_input($event_name);
+		$error = ""; 
+		if ($name == null || strlen($name) == 0) {
+			$error .= "@1Event name cannot be empty! ";
+		} 
+		if ($event_name == null || strlen($event_date) != 10) {
+			$error .= "@2Event date must be specified correctly (YYYY-MM-DD)! ";
+		}
+		if($starttime == null || strlen($starttime) != 5) {
+			$error .= "@3Event start time must be specified correctly (HH:MM)! ";
+		}
+		if($endtime == null || strlen($endtime) != 5) {
+			$error .= "@4Event end time must be specified correctly (HH:MM)!";
+		} 
+		if($starttime != null && $endtime != null && strcmp($starttime, $endtime) > 0) {
+			$error .= "@4Event end time cannot be before event start time!";
+		}
+		if(strlen($error) > 0) {
+			throw new Exception($error); 
 		
+		} else {
+				// 2. Load all the data
+				$pm = new PersistenceEventRegistration();
+				$rm = $pm->loadDataFromStore();
+				
+				// 3. Add the new event
+				$event = new Event($name, $event_date, $starttime, $endtime);
+				$rm->addEvent($event); 
+				
+				// 4. Write all of the data
+				$pm->writeDataToStore($rm);
+			}	
+			
 	}
 	
 	public function register($aParticipant, $aEvent) {
@@ -71,6 +103,13 @@ class Controller
 				$error .= "@1Participant "; 
 				if ($aParticipant != NULL) {
 					$error .= $aParticipant; 
+				}
+				$error .= " not found! ";
+			}
+			if ($myevent == NULL) {
+				$error .= "@2Event ";
+				if ($aEvent != NULL) {
+					$error .= $aEvent;
 				}
 				$error .= " not found! ";
 			}
