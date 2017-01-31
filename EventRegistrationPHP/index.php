@@ -58,5 +58,44 @@
 			</span></p>
 			<p><input type="submit" value="Add Participant"/></p>
 		</form>
+		
+		<form action="addevent.php" method="post">
+			<p>Name? <input type="text" name="event_name" />
+			<span class="error">
+			<?php 
+			if (isset($_SESSION['errorEventName']) && !empty($_SESSION['errorEventName'])) {
+				echo " * " . $_SESSION["errorEventName"];
+			}
+			?>
+			</span></p>
+			<p>Date? <input type="date" name="event_date" value= "<?php echo date('Y-m-d'); ?>" />
+			<span class="error">
+			<?php 
+			if (isset($_SESSION['errorEventDate']) && !empty($_SESSION['errorEventDate'])) {
+				echo " * " . $_SESSION["errorEventDate"];
+			}
+			?>
+			</span></p>
+			<p>Start time? <input type="time" name="starttime" value="<?php echo date('H:i'); ?>" />
+			<span class="error">
+			<?php 
+			if (isset($_SESSION['errorStartTime']) && !empty($_SESSION['errorStartTime'])) {
+				echo " * " . $_SESSION["errorStartTime"];
+			}
+			?>
+			</span></p>
+			<p>End time? <input type="time" name="endtime" value="<?php echo date('H:i'); ?>" />
+			<span class="error">
+			<?php 
+			if (isset($_SESSION['errorEndTime']) && !empty($_SESSION['errorEndTime'])) {
+				echo " * " . $_SESSION["errorEndTime"];
+			}
+			?>
+			</span></p>
+			<p><input type="submit" value="Add Event"/></p>
+		</form>
+		
+		
+		
 	</body>
 </html>
