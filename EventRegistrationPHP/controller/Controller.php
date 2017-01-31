@@ -39,13 +39,13 @@ class Controller
 		if ($name == null || strlen($name) == 0) {
 			$error .= "@1Event name cannot be empty! ";
 		} 
-		if ($event_name == null || strlen($event_date) != 10) {
+		if ($event_date == null || strtotime($event_date) == false) {
 			$error .= "@2Event date must be specified correctly (YYYY-MM-DD)! ";
 		}
-		if($starttime == null || strlen($starttime) != 5) {
+		if($starttime == null || strtotime($starttime) == false) {
 			$error .= "@3Event start time must be specified correctly (HH:MM)! ";
 		}
-		if($endtime == null || strlen($endtime) != 5) {
+		if($endtime == null ||  strtotime($endtime) == false) {
 			$error .= "@4Event end time must be specified correctly (HH:MM)!";
 		} 
 		if($starttime != null && $endtime != null && strcmp($starttime, $endtime) > 0) {
@@ -60,7 +60,10 @@ class Controller
 				$rm = $pm->loadDataFromStore();
 				
 				// 3. Add the new event
-				$event = new Event($name, $event_date, $starttime, $endtime);
+				$date = date('Y-m-d', strtotime($event_date));
+				$start = date('H:i', strtotime($starttime));
+				$end = date('H:i', strtotime($endtime));
+				$event = new Event($name, $date, $start, $end);
 				$rm->addEvent($event); 
 				
 				// 4. Write all of the data
